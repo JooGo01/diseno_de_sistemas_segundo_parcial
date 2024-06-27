@@ -42,11 +42,15 @@ public class Entrenador {
     }
 
     private void enfrentarseA(Entrenador otroEntrenador){
-
+        //falto llenar la logica de enfrentamiento
     }
 
     private void capturarPokemon(Pokemon unPokemon){
-
+        if(pokemons.size()<5){
+            pokemons.add(unPokemon);
+        }else{
+            System.out.println("Espacio lleno");
+        }
     }
 
     private String getNombre(){

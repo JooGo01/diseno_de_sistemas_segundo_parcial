@@ -16,6 +16,7 @@ public class Pokemon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //me falto poner a tipo como un ENUM
     String tipo;
     String especie;
     Float vida;
@@ -46,6 +47,7 @@ public class Pokemon {
         Float min = 1.0F;
         Float range = max - min + 1;
         Float rand = (int)(Math.random() * range) + min;
+        otroPokemon.restarVida(rand);
     }
 
     private void restarVida(Float cant){
