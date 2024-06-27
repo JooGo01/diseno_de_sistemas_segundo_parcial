@@ -2,11 +2,9 @@ package ar.edu.davinci.parcial.controller;
 
 import ar.edu.davinci.parcial.model.Entrenador;
 import ar.edu.davinci.parcial.model.Pokemon;
+import ar.edu.davinci.parcial.service.EntrenadorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,8 +44,18 @@ public class EntrenadorController {
             Integer id_pokemon = Integer.parseInt(pokemonObj.toString());
 
         }
-        Entrenador entrenador = new Entrenador()
+        Entrenador entrenador = new Entrenador(nombre, fechaNacimiento, nacionalidad, genero, edad, lista_pokemon);
         Optional<Entrenador> entrenadorCreado = entrenadorService.createEntrenador(entrenador);
         return entrenadorCreado;
+    }
+
+    @GetMapping("/")
+    public List<Entrenador> findAll(){
+        return entrenadorService.findAll();
+    }
+
+    @GetMapping("/busqueda/id/{id}")
+    public Optional<Entrenador> findByEdad(@PathVariable Long id){
+        return entrenadorService.findById(id);
     }
 }
