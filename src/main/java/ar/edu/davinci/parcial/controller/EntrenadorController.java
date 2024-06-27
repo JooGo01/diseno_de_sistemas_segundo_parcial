@@ -63,7 +63,7 @@ public class EntrenadorController {
     }
 
     @GetMapping("/busqueda/id/{id}")
-    public Optional<Entrenador> findByEdad(@PathVariable Long id){
+    public Optional<Entrenador> findById(@PathVariable Long id){
         return entrenadorService.findById(id);
     }
 }
