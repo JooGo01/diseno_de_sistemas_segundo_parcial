@@ -17,7 +17,12 @@ public class Pokemon {
     }
 
     private void atacar(Pokemon otroPokemon){
-
+        /*
+        Float max = 100;
+        Float min = 1;
+        Float range = max - min + 1;
+        Float rand = (int)(Math.random() * range) + min;
+         */
     }
 
     private void restarVida(Float cant){
