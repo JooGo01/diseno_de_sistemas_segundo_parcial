@@ -12,11 +12,11 @@ public class Entrenador {
     Integer edad;
     List<Pokemon> pokemons = new ArrayList<>();
 
-    private Entrenador(){
+    public Entrenador(){
 
     }
 
-    private Entrenador(String nombre, Date fechaNacimiento, String nacionalidad, String genero, int edad, List<Pokemon> pokemons){
+    public Entrenador(String nombre, Date fechaNacimiento, String nacionalidad, String genero, int edad, List<Pokemon> pokemons){
         this.nombre=nombre;
         this.fechaNacimiento=fechaNacimiento;
         this.nacionalidad=nacionalidad;
