@@ -1,15 +1,40 @@
 package ar.edu.davinci.parcial.model;
 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "pokemon")
 public class Pokemon {
-    Tipo tipo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    String tipo;
     String especie;
     Float vida;
     Float poder;
 
+    @ManyToMany
+    @JoinTable(
+            name = "pokemon_entrenador",
+            joinColumns = @JoinColumn(name = "pokemon_id"),
+            inverseJoinColumns = @JoinColumn(name = "entrenador_id")
+    )
+    @JsonBackReference
+    @JsonIgnore
+    List<Entrenador> entrenadors = new ArrayList<>();
+
     public Pokemon(){
     }
 
-    public Pokemon(Tipo tipo, String especie, Float vida, Float poder){
+    public Pokemon(String tipo, String especie, Float vida, Float poder){
         this.tipo=tipo;
         this.especie=especie;
         this.vida=vida;
@@ -17,27 +42,34 @@ public class Pokemon {
     }
 
     private void atacar(Pokemon otroPokemon){
-        /*
-        Float max = 100;
-        Float min = 1;
+        Float max = 100.0F;
+        Float min = 1.0F;
         Float range = max - min + 1;
         Float rand = (int)(Math.random() * range) + min;
-         */
     }
 
     private void restarVida(Float cant){
-        this.vida-=cant;
+        if((this.vida-cant)<=0.0F){
+            this.vida= 0.0F;
+        }else{
+            this.vida-=cant;
+        }
     }
 
     private void aumentarVida(Float vida){
-        this.vida+=vida;
+
+        if((this.vida+vida)>=100.0F){
+            this.vida= 100.0F;
+        }else{
+            this.vida+=vida;
+        }
     }
 
-    private Tipo getTipo(){
+    private String getTipo(){
         return tipo;
     }
 
-    private void setTipo(Tipo tipo){
+    private void setTipo(String tipo){
         this.tipo=tipo;
     }
 

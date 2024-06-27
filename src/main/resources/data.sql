@@ -6,18 +6,12 @@ CREATE TABLE IF NOT EXISTS entrenador(
     edad INT
 )
 
-CREATE TABLE IF NOT EXISTS tipo(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(255)
-)
-
 CREATE TABLE IF NOT EXISTS pokemon(
     id INT PRIMARY KEY AUTO_INCREMENT,
     especie VARCHAR(255),
-    vida DOUBLE,
-    poder DOUBLE,
-    tipo_id INT,
-    FOREIGN KEY (tipo_id) REFERENCES artista(id)
+    vida FLOAT,
+    poder FLOAT,
+    tipo VARCHAR(255)
 )
 
 CREATE TABLE IF NOT EXISTS pokemon_entrenador (
@@ -33,11 +27,11 @@ INSERT INTO entrenador(nombre,nacionalidad,genero,edad)
 VALUES ('Entrenador A', 'Brasil', 'Masculino', 30),
        ('Entrenadora B', 'Colombia', 'Femenino', 26)
 
-INSERT INTO tipo (nombre)
-VALUES ('Eléctrico'), ('Agua'), ('Fuego'), ('Vegetal'), ('Piedra');
+/*INSERT INTO tipo (nombre)
+VALUES ('Eléctrico'), ('Agua'), ('Fuego'), ('Vegetal'), ('Piedra');*/
 
-INSERT INTO pokemon(especie,vida,poder,tipo_id)
-VALUES ('Especie 1', 100, 20, 1),
-       ('Especie 2', 80, 30, 3),
-       ('Especie 3', 60, 40, 2),
-       ('Especie 4', 80, 20, 5)
+INSERT INTO pokemon(especie,vida,poder,tipo)
+VALUES ('Especie 1', 100, 20, 'Piedra'),
+       ('Especie 2', 80, 30, 'Vegetal'),
+       ('Especie 3', 60, 40, 'Agua'),
+       ('Especie 4', 80, 20, 'Electrico')

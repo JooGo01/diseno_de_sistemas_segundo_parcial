@@ -1,15 +1,31 @@
 package ar.edu.davinci.parcial.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity
+@Table(name = "entrenador")
 public class Entrenador {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     String nombre;
     Date fechaNacimiento;
     String nacionalidad;
     String genero;
     Integer edad;
+
+    @ManyToMany
+    @JoinTable(
+            name = "pokemon_entrenador",
+            joinColumns = @JoinColumn(name = "entrenador_id"),
+            inverseJoinColumns = @JoinColumn(name = "pokemon_id")
+    )
+    @JsonManagedReference
     List<Pokemon> pokemons = new ArrayList<>();
 
     public Entrenador(){
