@@ -3,7 +3,9 @@ package ar.edu.davinci.parcial.controller;
 import ar.edu.davinci.parcial.model.Entrenador;
 import ar.edu.davinci.parcial.model.Pokemon;
 import ar.edu.davinci.parcial.service.EntrenadorService;
+import ar.edu.davinci.parcial.service.PokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -35,14 +37,20 @@ public class EntrenadorController {
         Object pokemonObj = requestBody.get("pokemons");
         List<Pokemon> lista_pokemon = new ArrayList<>();
         if(pokemonObj instanceof List){
-            List<Integer> lista_id_pokemon = (List<Integer>) pokemonObj;
-            for(Integer id_pokemon : lista_id_pokemon){
+            List<Long> lista_id_pokemon = (List<Long>) pokemonObj;
+            for(Long id_pokemon : lista_id_pokemon){
                 Pokemon pokemon = new Pokemon();
-
+                Optional<Pokemon> pokemonBuscado = pokemonService.findById(id_pokemon);
+                if(pokemonBuscado.isPresent()){
+                    lista_pokemon.add((pokemonBuscado.get()));
+                }
             }
-        }else if (pokemonObj instanceof Integer){
-            Integer id_pokemon = Integer.parseInt(pokemonObj.toString());
-
+        }else if (pokemonObj instanceof Long){
+            Long id_pokemon = Long.parseLong(pokemonObj.toString());
+            Optional<Pokemon> pokemonBuscado = pokemonService.findById(id_pokemon);
+            if(pokemonBuscado.isPresent()){
+                lista_pokemon.add((pokemonBuscado.get()));
+            }
         }
         Entrenador entrenador = new Entrenador(nombre, fechaNacimiento, nacionalidad, genero, edad, lista_pokemon);
         Optional<Entrenador> entrenadorCreado = entrenadorService.createEntrenador(entrenador);
